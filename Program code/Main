@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+//Michael Sanchez
+//LAB 3
+//Encryption assignment with caesar cipher
+using namespace std;
+const char elements[]={"abcdefghijklmnopqrstuvwxyz"};//i use this to store values in my temp array and assigning it to hash
+
+const int N=3;//contains the size of menu items
+string menu[]={"Encrypt","Decrypt - this only works after encrypting","Exit"};//menu items
+void encrypt(string &hash,int size,int encryption_number,int temp_array[])//this encrypt the string that was entered
+{
+	for(int i=0;i<size;i++)//this loop finds the value of hash 1 at a time
+		{
+		for(int j=0;j<25+1;j++)//this value goes through my elements[] array until it finds a match for values in hash
+		{
+		if(elements[j] == hash[i])
+			{
+				temp_array[i]=j+encryption_number;//stores the location of values that belond hash and elements
+				if((temp_array[i])>25)//if numbers are greater than the max value then it subtracts to find a value in elements[]
+				{
+					int q=temp_array[i]-26;
+					hash[i]=elements[q];
+					break;	
+				}
+				else
+				{
+					
+						int q=temp_array[i]-26;
+					hash[i]=elements[temp_array[i]];
+					break;
+			}
+			}		
+		}
+	}
+	}
+void decrypt(string &hash,int size,int encryption_number,int temp_array[])
+{
+	for(int p=0;p<size;p++)
+	{
+		if(hash[p] ==' ')
+		{
+			continue;
+		}
+		else
+		hash[p]=elements[temp_array[p]-encryption_number];//sets the elements of hash equal to the values of array elements[]	
+	}
+	}
+
+void display(const string alg[], int N)
+{
+	cout<<"\nSelect a number choice\n";
+ 
+ for(int i=0; i<N; i++)
+    cout << i <<":--"<< alg[i]<<endl;
+ cout<<endl;
+}
+
+int main()
+{
+	char c_choice='y';//user inputs the menu choice they want
+	while(c_choice=='y')
+	{
+		
+	
+	cout<<"Main Menu\n";//displays menu items 3 total
+		display(menu,N);	
+	cout<<"Enter a number option ";
+	int choice;
+	cin>>choice;//this line gets the choice inputted by the user
+	cin.ignore();
+	string hash;//the input string
+	int number;//encryption number
+	int size;	//size of string
+		if(choice==2)
+	{
+		cout<<"Program exiting";
+		exit(0);//exits the program
+	}
+	if(choice==0)
+	{
+	cout<<"enter an original string you would like to encrypt\n";
+	getline(cin,hash);//gets string input by user
+	size=hash.size();//gets size of string
+	cout<<"\nnumber used to encrypt? ";//gets encryption number to be used in functions
+	cin>>number;//this number is the encryption key that adds or subtracts to change the value of an element
+	cout<<"\nOriginal string = "<<hash;//displays the original string
+	int temp_array[size];//this array holds the element location for my char array. ex: d is at elements[3] so temp array holds 3
+	encrypt(hash,size,number,temp_array); //hash contains string, size is size of hash string,number is encryption number
+		cout<<"\n\nEncrypted string = "<<hash<<endl;//displays encrypted string
+		decrypt(hash,size,number,temp_array);//decrypts the encrypted string
+	cout<<"\nif you would like to decrypt the string press '1'\n";
+	cin>>choice;
+	
+
+	if(choice==1)
+	{
+	
+
+	cout<<"\nDecrypted string: "<<hash;//displays the decrypted string
+	}
+	}
+	cout<<"\ncontinue program? y/n";
+	cin>>c_choice;
+	cout<<endl;
+}
+	cout<<"Program exiting";
+}
+
